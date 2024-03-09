@@ -12,7 +12,13 @@ def environment_callback(request):
 
 
 def badge_callback(request):
-    return f"+{random.randint(1, 99)}"
+    # Return random int for superuser
+    if request.user.is_superuser:
+        return f"+{random.randint(1, 99)}"
+    
+    import uuid
+    # Return uuid for staff
+    return f"+{uuid.uuid4()}"
 
 
 def permission_callback(request):
