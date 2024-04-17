@@ -185,6 +185,12 @@ STORAGES = {
 ######################################################################
 # Unfold
 ######################################################################
+def reverse_callback(request):
+    if request.user.is_superuser:
+        return reverse_lazy("admin:formula_driver_changelist")
+    else:
+        return reverse_lazy("admin:auth_group_changelist")
+    
 UNFOLD = {
     "SITE_HEADER": _("Formula Admin"),
     "SITE_TITLE": _("Formula Admin"),
@@ -208,7 +214,7 @@ UNFOLD = {
                 {
                     "title": _("Drivers"),
                     "icon": "sports_motorsports",
-                    "link": reverse_lazy("admin:formula_driver_changelist"),
+                    "link": reverse_callback,
                 },
                 {
                     "title": _("Constructors"),
